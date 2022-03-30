@@ -47,8 +47,9 @@ class SbisClient
     /**
      * @throws SbisExceptions
      */
-    private function validateLogin(){
-        if (!$this->login || ! is_string($this->login)){
+    private function validateLogin()
+    {
+        if (!$this->login || !is_string($this->login)) {
             throw SbisExceptions::loginNotProvided(self::SBIS_LOGIN);
         }
     }
@@ -57,8 +58,9 @@ class SbisClient
     /**
      * @throws SbisExceptions
      */
-    private function validatePassword(){
-        if (!$this->password || ! is_string($this->password)){
+    private function validatePassword()
+    {
+        if (!$this->password || !is_string($this->password)) {
             throw SbisExceptions::passwordNotProvided(self::SBIS_PASSWORD);
         }
     }
@@ -67,7 +69,8 @@ class SbisClient
     /**
      * @throws \Exception
      */
-    private function sbisAuth(){
+    private function sbisAuth()
+    {
 
         $authResult = SbisRequests::authRequest('POST', [
             'jsonrpc' => '2.0',
@@ -84,7 +87,7 @@ class SbisClient
 
         preg_match_all('/^Set-Cookie:\s*([^;]*)/mi', $authResult, $matches);
         $cookies = array();
-        foreach($matches[1] as $item) {
+        foreach ($matches[1] as $item) {
             parse_str($item, $cookie);
             $cookies = array_merge($cookies, $cookie);
         }
@@ -95,7 +98,7 @@ class SbisClient
 
         $ma = json_decode($matchess[0][0]);
 
-        if (!empty($ma->error)){
+        if (!empty($ma->error)) {
             throw SbisExceptions::authError($ma->error->message);
         }
 
@@ -103,7 +106,7 @@ class SbisClient
     }
 
 
-    public function getDocuments(): SbisDocuments
+    public function documents(): SbisDocuments
     {
         return new SbisDocuments(self::SBIS_URL, $this->token);
     }

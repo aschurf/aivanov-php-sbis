@@ -22,12 +22,18 @@ $filter = [
 ];
 
 try {
-    $docs = $sbis->getDocuments()
+    $docs = $sbis->documents()
         ->withFilter($filter)
         ->getDocumentsList();
 } catch (\Aivanov\SbisPhp\Exceptions\SbisExceptions $e) {
 
 }
 
+try {
+    $doc = $sbis->documents()
+        ->readDocument('3c123559-dcd9-4ca2-94b7-5664c072ecdb');
+} catch (\Aivanov\SbisPhp\Exceptions\SbisExceptions $e) {
+
+}
 echo "<pre>";
-print_r($docs);
+print_r($doc);
