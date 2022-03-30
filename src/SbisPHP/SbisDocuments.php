@@ -64,6 +64,8 @@ class SbisDocuments
 
         $aDocuments = [];
 
+
+
         foreach ($documents->result->Документ as $document) {
             $aDocuments[] = [
                 'id' => $document->Идентификатор,
@@ -75,6 +77,7 @@ class SbisDocuments
                 'documentType' => $document->Тип,
                 'documentSum' => $document->Сумма,
                 'documentDeleted' => $document->Удален,
+                'documentStatus' => $document->Состояние->Код,
                 'supplierInn' => !empty($document->Контрагент->СвЮЛ) ? $document->Контрагент->СвЮЛ->ИНН : $document->Контрагент->СвФЛ->ИНН,
                 'supplierKpp' => !empty($document->Контрагент->СвЮЛ) ? $document->Контрагент->СвЮЛ->КПП : $document->Контрагент->СвФЛ->КПП,
                 'supplierAddress' => !empty($document->Контрагент->СвЮЛ) ? $document->Контрагент->СвЮЛ->АдресЮридический : $document->Контрагент->СвФЛ->АдресЮридический,
