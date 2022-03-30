@@ -6,8 +6,16 @@
             "Aivanov\\SbisPHP\\": "src/SbisPHP"
         }
     },
+    "authors": [
+        {
+            "name": "Aleksandr Ivanov",
+            "email": "a.schurf@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
     "require": {
         "ext-curl": "*",
-        "ext-json": "*"
+        "ext-json": "*",
+        "php": ">=7.4.0"
     }
 }
