@@ -55,7 +55,7 @@ class SbisDocuments
      * </code>
      * @param array $filter
      * @return array
-     * @throws \Aivanov\SbisPhp\Exceptions\SbisExceptions
+     * @throws \Aivanov\SbisPHP\Exceptions\SbisExceptions
      */
     public function getDocumentsList(): array
     {
@@ -101,7 +101,7 @@ class SbisDocuments
      * Return attach of document by ID
      * @param string $id
      * @return object
-     * @throws \Aivanov\SbisPhp\Exceptions\SbisExceptions
+     * @throws \Aivanov\SbisPHP\Exceptions\SbisExceptions
      */
     public function readDocument(string $id): array
     {
@@ -151,6 +151,17 @@ class SbisDocuments
         $object = json_decode(json_encode($docInfo), FALSE);
 
         return $object;
+
+    }
+
+    /**
+     * @throws Exceptions\SbisExceptions
+     */
+    public function getHtmlPdf(string $url){
+
+        $documentAttaches = SbisRequests::fileRequest('GET', $url, $this->token);
+
+        return $documentAttaches;
 
     }
 
