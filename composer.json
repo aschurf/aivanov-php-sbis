@@ -1,0 +1,13 @@
+{
+    "name": "aivanov/sbisphp",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Aivanov\\SbisPHP\\": "src/SbisPHP"
+        }
+    },
+    "require": {
+        "ext-curl": "*",
+        "ext-json": "*"
+    }
+}
