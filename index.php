@@ -35,4 +35,4 @@ try {
 
 }
 echo "<pre>";
-print_r($doc);
+print_r($docs);
