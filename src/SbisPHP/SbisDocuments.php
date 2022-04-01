@@ -64,8 +64,6 @@ class SbisDocuments
 
         $aDocuments = [];
 
-
-
         foreach ($documents->result->Документ as $document) {
             $aDocuments[] = [
                 'id' => $document->Идентификатор,
@@ -165,4 +163,89 @@ class SbisDocuments
 
     }
 
+
+    /**
+     * Подготовит действие для документа по его ID
+     * @param $docIndentifier
+     * @param $actionName
+     * @param $actionDocumentName
+     * @param $imprint
+     * @param $comment
+     * @return mixed
+     * @throws Exceptions\SbisExceptions
+     */
+    public function actionPrepare($docIndentifier, $actionName, $actionDocumentName, $imprint, $comment = ''){
+
+        $filterForReadDocument = [
+            'jsonrpc' => '2.0',
+            'method' => 'СБИС.ПодготовитьДействие',
+            'params' => [
+                'Документ' => [
+                    'Идентификатор' => $docIndentifier,
+                    'Этап' => [
+                        'Действие' => [
+                            'Комментарий' => $comment,
+                            'Название' => $actionName,
+                            'Сертификат' => [
+                                'Отпечаток' => $imprint,
+                                'Ключ' => [
+                                    'Тип' => 'Отложенный'
+                                ],
+                            ],
+                        ],
+                        'Название' => $actionDocumentName
+                    ]
+                ]
+            ],
+            'id' => 0
+        ];
+
+        $result = SbisRequests::request('POST', $filterForReadDocument, $this->sbis_url, $this->token);
+
+        return $result;
+
+    }
+
+
+    /**
+     * Подготовит действие для документа по его ID
+     * @param $docIndentifier
+     * @param $actionName
+     * @param $actionDocumentName
+     * @param $imprint
+     * @param $comment
+     * @return mixed
+     * @throws Exceptions\SbisExceptions
+     */
+    public function actionRun($docIndentifier, $actionName, $actionDocumentName, $imprint, $comment = ''){
+
+        $filterForReadDocument = [
+            'jsonrpc' => '2.0',
+            'method' => 'СБИС.ВыполнитьДействие',
+            'params' => [
+                'Документ' => [
+                    'Идентификатор' => $docIndentifier,
+                    'Этап' => [
+                        'Действие' => [
+                            'Комментарий' => $comment,
+                            'Название' => $actionName,
+                            'Сертификат' => [
+                                'Отпечаток' => $imprint,
+                                'Ключ' => [
+                                    'Тип' => 'Отложенный'
+                                ],
+                            ],
+                        ],
+                        'Название' => $actionDocumentName
+                    ]
+                ]
+            ],
+            'id' => 0
+        ];
+
+        $result = SbisRequests::request('POST', $filterForReadDocument, $this->sbis_url, $this->token);
+
+        return $result;
+
+    }
 }
