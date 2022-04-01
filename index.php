@@ -12,6 +12,7 @@ $filter = [
     'params' => [
         'Фильтр' => [
             'ДатаС' => '29.03.2022',
+            'ДатаПо' => '29.03.2022',
             'Тип' => 'ДокОтгрВх',
             'Навигация' => [
                 'РазмерСтраницы' => 200
@@ -42,6 +43,17 @@ try {
     echo $e->getMessage();
 }
 
+try {
+    $podpisat = $sbis->documents()->actionPrepare('7a16b185-3d2a-45f6-838c-ac865438a761', 'Утвердить', 'Утверждение', 'FADB94700EC51523E6073B0CA5F1A902D2EA6D7C', '');
+} catch (\Aivanov\SbisPHP\Exceptions\SbisExceptions $e) {
+
+}
+
+try {
+    $podpisat = $sbis->documents()->actionRun('7a16b185-3d2a-45f6-838c-ac865438a761', 'Утвердить', 'Утверждение', 'FADB94700EC51523E6073B0CA5F1A902D2EA6D7C', '');
+} catch (\Aivanov\SbisPHP\Exceptions\SbisExceptions $e) {
+
+}
 
 echo "<pre>";
-print_r($html);
+print_r($podpisat);
