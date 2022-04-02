@@ -65,27 +65,33 @@ class SbisDocuments
         $aDocuments = [];
 
         foreach ($documents->result->Документ as $document) {
-            $aDocuments[] = [
-                'id' => $document->Идентификатор,
-                'date' => $document->Дата,
-                'createdAt' => $document->ДатаВремяСоздания,
-                'documentName' => $document->Название,
-                'documentDirection' => $document->Направление,
-                'documentNumber' => $document->Номер,
-                'documentType' => $document->Тип,
-                'documentSum' => $document->Сумма,
-                'documentDeleted' => $document->Удален,
-                'documentStatus' => $document->Состояние->Код,
-                'supplierInn' => !empty($document->Контрагент->СвЮЛ) ? $document->Контрагент->СвЮЛ->ИНН : $document->Контрагент->СвФЛ->ИНН,
-                //'supplierKpp' => !empty($document->Контрагент->СвЮЛ) ? $document->Контрагент->СвЮЛ->КПП : $document->Контрагент->СвФЛ->КПП,
-                'supplierAddress' => !empty($document->Контрагент->СвЮЛ) ? $document->Контрагент->СвЮЛ->АдресЮридический : $document->Контрагент->СвФЛ->АдресЮридический,
-                'supplierName' => !empty($document->Контрагент->СвЮЛ) ? $document->Контрагент->СвЮЛ->Название : $document->Контрагент->СвФЛ->Название,
-                'supplierType' => !empty($document->Контрагент->СвЮЛ) ? 'СвЮЛ' : 'СвФЛ',
-                'ourOrganiztionName' => !empty($document->НашаОрганизация->СвЮЛ) ? $document->НашаОрганизация->СвЮЛ->Название : $document->НашаОрганизация->СвФЛ->Название,
-                'ourOrganiztionInn' => !empty($document->НашаОрганизация->СвЮЛ) ? $document->НашаОрганизация->СвЮЛ->ИНН : $document->НашаОрганизация->СвФЛ->ИНН,
-                'ourOrganiztionKpp' => !empty($document->НашаОрганизация->СвЮЛ) ? $document->НашаОрганизация->СвЮЛ->КПП : $document->НашаОрганизация->СвФЛ->КПП,
-                'ourOrganiztionAddress' => !empty($document->НашаОрганизация->СвЮЛ) ? $document->НашаОрганизация->СвЮЛ->АдресЮридический : $document->НашаОрганизация->СвФЛ->АдресЮридический,
-            ];
+            try {
+                $aDocuments[] = [
+                    'id' => $document->Идентификатор,
+                    'date' => $document->Дата,
+                    'createdAt' => $document->ДатаВремяСоздания,
+                    'documentName' => $document->Название,
+                    'documentDirection' => $document->Направление,
+                    'documentNumber' => $document->Номер,
+                    'documentType' => $document->Тип,
+                    'documentSum' => $document->Сумма,
+                    'documentDeleted' => $document->Удален,
+                    'documentStatus' => $document->Состояние->Код,
+                    'supplierInn' => !empty($document->Контрагент->СвЮЛ) ? $document->Контрагент->СвЮЛ->ИНН : $document->Контрагент->СвФЛ->ИНН,
+                    'supplierKpp' => !empty($document->Контрагент->СвЮЛ) ? $document->Контрагент->СвЮЛ->КПП : '',
+                    'supplierAddress' => !empty($document->Контрагент->СвЮЛ) ? $document->Контрагент->СвЮЛ->АдресЮридический : '',
+                    'supplierName' => !empty($document->Контрагент->СвЮЛ) ? $document->Контрагент->СвЮЛ->Название :  $document->Контрагент->СвФЛ->Фамилия.' '.$document->Контрагент->СвФЛ->Имя,
+                    'supplierType' => !empty($document->Контрагент->СвЮЛ) ? 'СвЮЛ' : 'СвФЛ',
+                    'ourOrganiztionName' => !empty($document->НашаОрганизация->СвЮЛ) ? $document->НашаОрганизация->СвЮЛ->Название : $document->НашаОрганизация->СвФЛ->Название,
+                    'ourOrganiztionInn' => !empty($document->НашаОрганизация->СвЮЛ) ? $document->НашаОрганизация->СвЮЛ->ИНН : $document->НашаОрганизация->СвФЛ->ИНН,
+                    'ourOrganiztionKpp' => !empty($document->НашаОрганизация->СвЮЛ) ? $document->НашаОрганизация->СвЮЛ->КПП : $document->НашаОрганизация->СвФЛ->КПП,
+                    'ourOrganiztionAddress' => !empty($document->НашаОрганизация->СвЮЛ) ? $document->НашаОрганизация->СвЮЛ->АдресЮридический : $document->НашаОрганизация->СвФЛ->АдресЮридический,
+                ];
+            } catch (\Exception $e){
+                echo $e->getMessage();
+                echo "<pre>";
+                print_r($document);
+            }
         }
 
         $object = json_decode(json_encode($aDocuments), FALSE);
