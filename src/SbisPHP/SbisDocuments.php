@@ -248,4 +248,33 @@ class SbisDocuments
         return $result;
 
     }
+
+
+    public function insertAttach($docIndentifier, $fileName, $fileUrl){
+
+        $data = file_get_contents($fileUrl);
+
+        $filterForReadDocument = [
+            'jsonrpc' => '2.0',
+            'method' => 'СБИС.ЗаписатьВложение',
+            'params' => [
+                'Документ' => [
+                    'Идентификатор' => $docIndentifier,
+                    'Вложение' => [
+                        [
+                            'Файл' => [
+                                'Имя' => $fileName,
+                                'ДвоичныеДанные' => base64_encode($data),
+                            ]
+                        ]
+                    ]
+                ],
+            ],
+            'id' => 0
+        ];
+
+        $result = SbisRequests::request('POST', $filterForReadDocument, $this->sbis_url, $this->token);
+
+        return $result;
+    }
 }
