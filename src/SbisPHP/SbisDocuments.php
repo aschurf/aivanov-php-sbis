@@ -77,7 +77,7 @@ class SbisDocuments
                 'documentDeleted' => $document->Удален,
                 'documentStatus' => $document->Состояние->Код,
                 'supplierInn' => !empty($document->Контрагент->СвЮЛ) ? $document->Контрагент->СвЮЛ->ИНН : $document->Контрагент->СвФЛ->ИНН,
-                'supplierKpp' => !empty($document->Контрагент->СвЮЛ) ? $document->Контрагент->СвЮЛ->КПП : $document->Контрагент->СвФЛ->КПП,
+                //'supplierKpp' => !empty($document->Контрагент->СвЮЛ) ? $document->Контрагент->СвЮЛ->КПП : $document->Контрагент->СвФЛ->КПП,
                 'supplierAddress' => !empty($document->Контрагент->СвЮЛ) ? $document->Контрагент->СвЮЛ->АдресЮридический : $document->Контрагент->СвФЛ->АдресЮридический,
                 'supplierName' => !empty($document->Контрагент->СвЮЛ) ? $document->Контрагент->СвЮЛ->Название : $document->Контрагент->СвФЛ->Название,
                 'supplierType' => !empty($document->Контрагент->СвЮЛ) ? 'СвЮЛ' : 'СвФЛ',
