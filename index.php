@@ -21,6 +21,7 @@ $filter = [
     ],
     'id' => 0
 ];
+
 try {
 
     $docs = $sbis->documents()
