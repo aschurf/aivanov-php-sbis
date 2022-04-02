@@ -43,14 +43,17 @@ try {
     echo $e->getMessage();
 }
 
+
+//$insert = $sbis->documents()->insertAttach('2ea32db7-aa46-45b3-ad2f-3f1d968a3767', 'Акт о расхождении', 'https://procob.s3.us-east-2.amazonaws.com/edo/xml.xml');
+
 try {
-    $podpisat = $sbis->documents()->actionPrepare('7a16b185-3d2a-45f6-838c-ac865438a761', 'Утвердить', 'Утверждение', 'FADB94700EC51523E6073B0CA5F1A902D2EA6D7C', '');
+    $podpisat = $sbis->documents()->actionPrepare('2ea32db7-aa46-45b3-ad2f-3f1d968a3767', 'Утвердить', 'Утверждение', 'FADB94700EC51523E6073B0CA5F1A902D2EA6D7C', '');
 } catch (\Aivanov\SbisPHP\Exceptions\SbisExceptions $e) {
 
 }
 
 try {
-    $podpisat = $sbis->documents()->actionRun('7a16b185-3d2a-45f6-838c-ac865438a761', 'Утвердить', 'Утверждение', 'FADB94700EC51523E6073B0CA5F1A902D2EA6D7C', '');
+    $podpisat = $sbis->documents()->actionRun('2ea32db7-aa46-45b3-ad2f-3f1d968a3767', 'Утвердить', 'Утверждение', 'FADB94700EC51523E6073B0CA5F1A902D2EA6D7C', '');
 } catch (\Aivanov\SbisPHP\Exceptions\SbisExceptions $e) {
 
 }
